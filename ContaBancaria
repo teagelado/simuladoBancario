@@ -1,0 +1,57 @@
+public class ContaBancaria{
+    //Proteção de dados, Dasos privados//
+    private String titular;
+    private String numeroConta;
+    private double saldo;
+    
+    //objetos obrigatorios//
+    public ContaBancaria(String titular, String numeroConta, double saldoIncial){
+        this.titular = titular;
+        this.numeroConta = numeroConta;
+        this.saldo = Math.max(0, saldoIncial);
+
+    }
+
+    //Depósito é Validação//
+    public void depositar (double valor){
+        if(valor > 0){
+            this.saldo += valor;
+            System.out.printf("✅ Depósito de R$ %.2f realizado. Novo saldo:R$ %.2f%n",valor, this.saldo);
+        } else {
+            System.out.println("❌ Erro: O valor do depósito deve ser positivo.");
+        }
+    }
+
+    //Verificação de limite//
+    public boolean sacar(double valor) {
+        if ( valor > 0 && valor <= this.saldo){
+            this.saldo -= valor;
+            System.out.printf("✅ Saque de R$ %.2f realizado com sucesso.%n", valor);
+            return true;
+        } else {
+            System.out.println;("❌ Erro: Saldo insuficiente ou valor inválido.");
+            return false;
+        }
+
+    }
+
+    //Trasferncia criador//
+
+    public void transferir(double valor, ContaBancaria destino) {
+        System.out.println("🚀 Iniciando transferência...")
+        if (this.sacar(valor)) {
+            destino.depositar(valor);
+            System.out.println("✨ Transferência concluída para " + destino.getTitular());
+
+        }
+    }
+
+    //leitor de dados fixado//
+    public String getTitular() {return titular; }
+    public double getSaldo() {return saldo; }
+    public String getNumeroConta() {return numeroConta; }
+
+}    
+
+
+
